@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
 
-import Button from "@material-ui/core/Button";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import Typography from "@material-ui/core/Typography";
+// import Button from "@material-ui/core/Button";
+// import Checkbox from "@material-ui/core/Checkbox";
+// import FormControlLabel from "@material-ui/core/FormControlLabel";
+// import Select from "@material-ui/core/Select";
+// import MenuItem from "@material-ui/core/MenuItem";
+// import Typography from "@material-ui/core/Typography";
+
+import { Button } from "@mui/material";
+import { Checkbox } from "@mui/material";
+import { FormControlLabel } from "@mui/material";
+import { Select } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { Typography } from "@mui/material";
+
+import PlayArrow from "@mui/icons-material/PlayArrow";
+import CameraIcon from "@mui/icons-material/Camera";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import DownloadIcon from "@mui/icons-material/Download";
+
+import { Card, CardHeader, CardContent, CardActions } from "@mui/material";
+
 const MediaRecorder = () => {
   const [stream, setStream] = useState(null);
   const [mediaRecorder, setMediaRecorder] = useState(null);
@@ -62,7 +77,7 @@ const MediaRecorder = () => {
       "video/webm;codecs=h264,opus",
       "video/mp4;codecs=h264,aac",
     ];
-  
+
     return possibleTypes.filter((mimeType) => {
       if (typeof MediaRecorder.isTypeSupported === "function") {
         return MediaRecorder.isTypeSupported(mimeType);
@@ -136,11 +151,34 @@ const MediaRecorder = () => {
 
   return (
     <div id="container">
-      <Typography variant="h4">Media recorder</Typography>
+      <Typography variant="h4">Video Cuestionario</Typography>
 
-      <video id="gum" playsInline autoPlay muted></video>
-      <video id="recorded" playsInline loop></video>
-
+      <div>
+        <video
+          id="gum"
+          playsInline
+          autoPlay
+          muted
+          background-color="black"
+        ></video>
+        {/* <Card style={{ backgroundColor: "grey" }} width={200}> */}
+        <Card
+          style={{
+            backgroundColor: "grey",
+            marginTop: 10,
+            marginBottom: 10,
+            padding: 10,
+          }}
+        >
+          <CardContent>
+            <p>¿Cuál fué tu videojuego favorito durante la infancia?</p>
+          </CardContent>
+        </Card>
+      </div>
+      {/* <div>
+        <video id="recorded" playsInline loop></video>
+      </div> */}
+      <br></br>
       <div>
         <Button
           id="start"
@@ -148,6 +186,7 @@ const MediaRecorder = () => {
           color="primary"
           disabled={!!stream}
         >
+          <CameraIcon />
           Start camera
         </Button>
         <Button
@@ -157,6 +196,7 @@ const MediaRecorder = () => {
           onClick={recording ? stopRecording : startRecording}
           disabled={!stream}
         >
+          <FiberManualRecordIcon />
           {recording ? "Stop Recording" : "Start Recording"}
         </Button>
         <Button
@@ -166,6 +206,7 @@ const MediaRecorder = () => {
           onClick={playRecording}
           disabled={!recordedBlobs.length}
         >
+          <PlayArrow />
           Play
         </Button>
         <Button
@@ -175,11 +216,12 @@ const MediaRecorder = () => {
           onClick={downloadRecording}
           disabled={!recordedBlobs.length}
         >
+          <DownloadIcon />
           Download
         </Button>
       </div>
 
-      <div>
+      {/* <div>
         <Typography variant="subtitle1">Recording format:</Typography>
         <Select
           id="codecPreferences"
@@ -193,9 +235,9 @@ const MediaRecorder = () => {
             </MenuItem>
           ))}
         </Select>
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <Typography variant="subtitle1">
           Media Stream Constraints options:
         </Typography>
@@ -204,7 +246,7 @@ const MediaRecorder = () => {
           label="Echo cancellation"
           disabled={!!stream}
         />
-      </div>
+      </div> */}
 
       <div>
         <Typography variant="subtitle1" id="errorMsg">
